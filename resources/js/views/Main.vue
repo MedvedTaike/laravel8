@@ -25,7 +25,6 @@
 </section>
 </template>
 <script>
-import { mapGetters,mapActions } from 'vuex'
 import { required, url } from 'vuelidate/lib/validators'
 export default{
     validations: {
@@ -40,16 +39,13 @@ export default{
     computed: {
     },
     methods: {
-        ...mapActions(['createLink']),
         shortenLink(){
             this.$v.$touch()
             if (this.$v.$invalid) {
                 this.errors = true
                 return
             }
-            this.errors = false;
-            this.request_result = this.createLink(this.link)
-            console.log(this.request_result)
+            console.log(this.link)
         }
     }
 }
