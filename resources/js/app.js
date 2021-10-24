@@ -1,6 +1,6 @@
 import Vue from 'vue' 
 import App from './App.vue'
-// import router from './router'
+import router from './router'
 import VueResource from 'vue-resource';
 import Vuelidate from 'vuelidate'
 
@@ -14,6 +14,6 @@ Vue.http.interceptors.push(function(request) {
 });
 
 new Vue({
-    // router,
+    router,
     render: h => h(App)
 }).$mount('#app')
