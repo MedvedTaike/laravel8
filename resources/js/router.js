@@ -18,14 +18,19 @@ export default new Router({
       component: () => import('./views/LinksList.vue')
     },
     {
-      path: '/stats',
+      path: '/stats/:link_id',
       name: 'stats',
       component: () => import('./views/Statistic.vue')
     },
     {
-      path: '/ip-stats',
+      path: '/ip-stats/:address',
       name: 'ip-stats',
       component: () => import('./views/IpStatistic.vue')
+    },
+    {
+      path: '/browser-stats/:browser',
+      name: 'browser-stats',
+      component: () => import('./views/BrowserStatistic.vue')
     },
     
   ]

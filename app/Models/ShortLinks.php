@@ -11,8 +11,12 @@ class ShortLinks extends Model
     
     protected $fillable = ['short_link', 'full_link'];
 
-    public static function createShortLink($link, $domain){
+    public $timestamps = false;
+
+    public static function createShortLink($link, $req){
         
+        $domain = $req->root();
+
         return self::create([
             'short_link' => $domain .'/'. str_random(8),
             'full_link' => $link['full_link']

@@ -12,10 +12,8 @@ use Illuminate\Http\Request;
 class LinksController extends Controller
 {
     public function store(Request $req, LinkRequest $request){
-        
-        $domain = $req->root();
 
-        return ShortLinks::createShortLink($request->validated(), $domain);
+        return ShortLinks::createShortLink($request->validated(), $req);
 
     }
     public function recordVisit(Request $request , $id){
@@ -28,13 +26,16 @@ class LinksController extends Controller
         return new LinkCollection(ShortLinks::all());
          
     }
-    public function show($id){
-        echo $id;
+    public function stats($id){
+
+        return Visits::getData($id);
     }
     public function ipStat($address){
-        echo $address;
+        $collection = Visits::where('ip_address', $address)->get();
+        $result = $collection->countBy('link_id');
+        var_dump($result);
     }
-    public function visits($id){
-        echo $id;
+    public function browserStat($browser){
+        echo $browser;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\VisitsCollection;
 
 class Visits extends Model
 {
@@ -10,7 +11,7 @@ class Visits extends Model
 
     public function link(){
 
-        return $this->belongsTo(ShortLinks::class, 'id');
+        return $this->belongsTo(ShortLinks::class, 'link_id');
 
     }
 
@@ -24,5 +25,19 @@ class Visits extends Model
     public static function getBrowser($request){
         $browser = get_browser($request->header('User-Agent'), true);
         return $browser['browser'];
+    }
+
+    public static function getData($id){
+
+        $linksData = new VisitsCollection(self::where('link_id', $id)->get());
+
+        $link = ShortLinks::find($id);
+
+        $data = [
+            'links' => $linksData,
+            'link' => $link->short_link
+        ];
+
+        return $data;
     }
 }

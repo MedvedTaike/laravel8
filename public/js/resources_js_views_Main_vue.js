@@ -72,7 +72,9 @@ __webpack_require__.r(__webpack_exports__);
           this.$router.push('/links-list');
         }
       }, function (response) {
-        this.error_message = response.body.errors.full_link[0];
+        var _response$body$errors, _response$body$errors2;
+
+        this.error_message = (_response$body$errors = (_response$body$errors2 = response.body.errors) === null || _response$body$errors2 === void 0 ? void 0 : _response$body$errors2.full_link[0]) !== null && _response$body$errors !== void 0 ? _response$body$errors : 'Что то пошло не так!';
       });
     }
   }

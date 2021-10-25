@@ -34,6 +34,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -57,9 +68,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     redirectPage: function redirectPage(id, link) {
       this.$http.post('/api/visiting/' + id).then(function (response) {
-        if (response.status == 200) {
-          // this.$router.push(link)
-          console.log(response.data);
+        if (response.status == 201) {
+          this.getLinks();
         }
       }, function (response) {
         this.error_message = "Что то пошло не так!";
@@ -163,6 +173,12 @@ var render = function() {
     [
       _c("h1", [_vm._v("Список  ссылок")]),
       _vm._v(" "),
+      _vm.error_message
+        ? _c("div", { staticClass: "notification is-danger is-light" }, [
+            _vm._v("\r\n        " + _vm._s(_vm.error_message) + "\r\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("table", { staticClass: "table is-fullwidth" }, [
         _vm._m(0),
         _vm._v(" "),
@@ -176,21 +192,36 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    attrs: { href: "#", target: "_blank" },
+                    attrs: { href: link.full, target: "_blank" },
                     on: {
                       click: function($event) {
-                        $event.preventDefault()
                         return _vm.redirectPage(link.id, link.full)
                       }
                     }
                   },
-                  [_vm._v(_vm._s(link.link))]
+                  [
+                    _vm._v(
+                      "\r\n                  " +
+                        _vm._s(link.link) +
+                        "\r\n              "
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(link.full))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(link.count))])
+              _c("td", [_vm._v(_vm._s(link.count))]),
+              _vm._v(" "),
+              _c(
+                "td",
+                [
+                  _c("router-link", { attrs: { to: "/stats/" + link.id } }, [
+                    _vm._v("Стата")
+                  ])
+                ],
+                1
+              )
             ])
           }),
           0
@@ -221,10 +252,10 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", [
-          _c("abbr", { attrs: { title: "Visited" } }, [
-            _vm._v("Кол. переходов")
-          ])
-        ])
+          _c("abbr", { attrs: { title: "Visited" } }, [_vm._v("Пер.")])
+        ]),
+        _vm._v(" "),
+        _c("th", [_c("abbr", { attrs: { title: "Stats" } }, [_vm._v("Стат.")])])
       ])
     ])
   }

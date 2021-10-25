@@ -16,8 +16,6 @@
     <div class="navbar-start">
       <router-link class="navbar-item" to="/">Главная</router-link>
       <router-link class="navbar-item" to="/links-list">Список ссылок</router-link>
-      <router-link class="navbar-item" to="/stats">Статистика</router-link>
-      <router-link class="navbar-item" to="/ip-stats">IP статистика</router-link>
     </div>
   </div>
 </nav>

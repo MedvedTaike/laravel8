@@ -1,9 +1,6 @@
 <template>
-<section class="container mt-5">
-    <h1>Статистика по IP адрес {{address}}</h1>
-    <div class="notification is-danger is-light" v-if="error_message">
-        {{error_message}}
-    </div>
+<section class="container is-flex is-flex-direction-column is-align-items-center mt-5">
+    <h1>Статистика по браузеру {{browser}}</h1>
     <table class="table is-fullwidth">
   <thead>
     <tr>
@@ -32,18 +29,18 @@
 export default{
     data: () => ({
         data: [],
-        address: '',
+        browser: '',
         error_message: '',
     }),
     created(){
-      this.getAddressStat(this.$route.params.address)
-      this.address = this.$route.params.address
+      this.getBrowserStat(this.$route.params.browser)
+      this.browser = this.$route.params.browser
     },
     methods: {
-        getAddressStat(address){
-            this.$http.get('/api/ip/'+ address ).then(function(response){
+        getBrowserStat(browser){
+            this.$http.get('/api/browser/'+ browser ).then(function(response){
                 if(response.status == 200){
-                    console.log(response.data)
+                    console.log(response)
                 } 
             }, function (response){
                 this.error_message = "Что то пошло не так!"

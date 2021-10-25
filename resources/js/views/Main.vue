@@ -50,7 +50,7 @@ export default{
                     this.$router.push('/links-list')
                 } 
             }, function (response){
-                this.error_message = response.body.errors.full_link[0]
+                this.error_message = response.body.errors?.full_link[0] ?? 'Что то пошло не так!'
             })
         }
     }

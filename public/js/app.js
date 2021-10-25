@@ -102,16 +102,22 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
       return __webpack_require__.e(/*! import() */ "resources_js_views_LinksList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/LinksList.vue */ "./resources/js/views/LinksList.vue"));
     }
   }, {
-    path: '/stats',
+    path: '/stats/:link_id',
     name: 'stats',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_Statistic_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Statistic.vue */ "./resources/js/views/Statistic.vue"));
     }
   }, {
-    path: '/ip-stats',
+    path: '/ip-stats/:address',
     name: 'ip-stats',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_IpStatistic_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/IpStatistic.vue */ "./resources/js/views/IpStatistic.vue"));
+    }
+  }, {
+    path: '/browser-stats/:browser',
+    name: 'browser-stats',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_BrowserStatistic_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/BrowserStatistic.vue */ "./resources/js/views/BrowserStatistic.vue"));
     }
   }]
 }));
@@ -519,18 +525,6 @@ var render = function() {
                 "router-link",
                 { staticClass: "navbar-item", attrs: { to: "/links-list" } },
                 [_vm._v("Список ссылок")]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                { staticClass: "navbar-item", attrs: { to: "/stats" } },
-                [_vm._v("Статистика")]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                { staticClass: "navbar-item", attrs: { to: "/ip-stats" } },
-                [_vm._v("IP статистика")]
               )
             ],
             1
@@ -18461,7 +18455,7 @@ function h(tag, key, args) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Main_vue":1,"resources_js_views_LinksList_vue":1,"resources_js_views_Statistic_vue":1,"resources_js_views_IpStatistic_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Main_vue":1,"resources_js_views_LinksList_vue":1,"resources_js_views_Statistic_vue":1,"resources_js_views_IpStatistic_vue":1,"resources_js_views_BrowserStatistic_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
