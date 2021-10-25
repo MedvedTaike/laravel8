@@ -23,7 +23,9 @@ class Visits extends Model
         ]);
     }
     public static function getBrowser($request){
+
         $browser = get_browser($request->header('User-Agent'), true);
+
         return $browser['browser'];
     }
 
@@ -39,5 +41,19 @@ class Visits extends Model
         ];
 
         return $data;
+    }
+
+    public static function getVisitsCount($field, $address){
+
+        $collection = self::where($field, $address)->get()->countBy('link_id');
+
+        $result = [];
+
+        foreach($collection as $key => $value){
+            $result[$key]['link'] = ShortLinks::find($key)->short_link;
+            $result[$key]['count'] = $value;
+        }
+
+        return $result;
     }
 }

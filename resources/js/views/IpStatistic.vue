@@ -12,17 +12,9 @@
     </tr>
   </thead>
   <tbody>
-      <tr>
-          <td>1</td>
-          <td>asdf asdf</td>
-      </tr>
-      <tr>
-          <td>1</td>
-          <td>asdf asdf</td>
-      </tr>
-      <tr>
-          <td>1</td>
-          <td>asdf asdf</td>
+      <tr v-for="item in data" :key="item.link">
+          <td>{{item.link}}</td>
+          <td>{{item.count}}</td>
       </tr>
   </tbody>
 </table>
@@ -43,7 +35,7 @@ export default{
         getAddressStat(address){
             this.$http.get('/api/ip/'+ address ).then(function(response){
                 if(response.status == 200){
-                    console.log(response.data)
+                    this.data = response.data
                 } 
             }, function (response){
                 this.error_message = "Что то пошло не так!"

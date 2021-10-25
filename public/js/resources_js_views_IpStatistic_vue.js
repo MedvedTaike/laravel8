@@ -33,14 +33,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -57,7 +49,7 @@ __webpack_require__.r(__webpack_exports__);
     getAddressStat: function getAddressStat(address) {
       this.$http.get('/api/ip/' + address).then(function (response) {
         if (response.status == 200) {
-          console.log(response.data);
+          this.data = response.data;
         }
       }, function (response) {
         this.error_message = "Что то пошло не так!";
@@ -161,7 +153,21 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm._m(0)
+    _c("table", { staticClass: "table is-fullwidth" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.data, function(item) {
+          return _c("tr", { key: item.link }, [
+            _c("td", [_vm._v(_vm._s(item.link))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.count))])
+          ])
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -169,38 +175,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table is-fullwidth" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [
-            _c("abbr", { attrs: { title: "ID Link" } }, [_vm._v("Ссылки")])
-          ]),
-          _vm._v(" "),
-          _c("th", [
-            _c("abbr", { attrs: { title: "Count" } }, [
-              _vm._v("Кол. переходов")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("asdf asdf")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [
+          _c("abbr", { attrs: { title: "ID Link" } }, [_vm._v("Ссылки")])
         ]),
         _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("asdf asdf")])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("asdf asdf")])
+        _c("th", [
+          _c("abbr", { attrs: { title: "Count" } }, [_vm._v("Кол. переходов")])
         ])
       ])
     ])
