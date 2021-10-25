@@ -17,7 +17,6 @@ class CreateShortLinksTable extends Migration
             $table->id();
             $table->string('short_link');
             $table->string('full_link');
-            $table->timestamps();
         });
     }
 

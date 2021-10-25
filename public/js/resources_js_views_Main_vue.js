@@ -38,6 +38,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   validations: {
@@ -50,11 +53,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       link: '',
       errors: false,
-      request_error: null,
-      request_result: null
+      error_message: ''
     };
   },
-  computed: {},
   methods: {
     shortenLink: function shortenLink() {
       this.$v.$touch();
@@ -64,7 +65,15 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      console.log(this.link);
+      this.$http.post('/api/create', {
+        full_link: this.link
+      }).then(function (response) {
+        if (response.status == 201) {
+          this.$router.push('/links-list');
+        }
+      }, function (response) {
+        this.error_message = response.body.errors.full_link[0];
+      });
     }
   }
 });
@@ -624,9 +633,15 @@ var render = function() {
       ? _c("div", { staticClass: "notification is-danger is-light" }, [
           _vm._v("\r\n            Введите валидный URl адрес!\r\n        ")
         ])
-      : _vm.$v.link.url && _vm.$v.link.required
+      : _vm.$v.link.url && _vm.$v.link.required && !_vm.error_message
       ? _c("div", { staticClass: "notification is-primary is-light" }, [
           _vm._v("\r\n            Вы можете укоротить ссылку!\r\n        ")
+        ])
+      : _vm.error_message
+      ? _c("div", { staticClass: "notification is-danger is-light" }, [
+          _vm._v(
+            "\r\n            " + _vm._s(_vm.error_message) + "\r\n        "
+          )
         ])
       : _vm._e()
   ])

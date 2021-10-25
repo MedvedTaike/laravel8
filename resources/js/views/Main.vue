@@ -19,8 +19,11 @@
         <div class="notification is-danger is-light" v-else-if="!$v.link.url">
             Введите валидный URl адрес!
         </div>
-        <div class="notification is-primary is-light" v-else-if="$v.link.url && $v.link.required">
+        <div class="notification is-primary is-light" v-else-if="$v.link.url && $v.link.required && !error_message">
             Вы можете укоротить ссылку!
+        </div>
+        <div class="notification is-danger is-light" v-else-if="error_message">
+            {{error_message}}
         </div>
 </section>
 </template>
@@ -33,11 +36,8 @@ export default{
     data: () => ({
         link: '',
         errors: false,
-        request_error: null,
-        request_result: null
+        error_message: ''
     }),
-    computed: {
-    },
     methods: {
         shortenLink(){
             this.$v.$touch()
@@ -45,7 +45,13 @@ export default{
                 this.errors = true
                 return
             }
-            console.log(this.link)
+            this.$http.post('/api/create', {full_link: this.link}).then(function(response){
+                if(response.status == 201){
+                    this.$router.push('/links-list')
+                } 
+            }, function (response){
+                this.error_message = response.body.errors.full_link[0]
+            })
         }
     }
 }

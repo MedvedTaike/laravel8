@@ -1,7 +1,7 @@
 <template>
 <section class="container is-flex is-flex-direction-column is-align-items-center mt-5">
     <h1>Список  ссылок</h1>
-    <table class="table">
+    <table class="table is-fullwidth">
   <thead>
     <tr>
       <th><abbr title="ID Link">ID</abbr></th>
@@ -11,25 +11,47 @@
     </tr>
   </thead>
   <tbody>
-      <tr>
-          <td>1</td>
-          <td>asdf asdf</td>
-          <td>full link</td>
-          <td>visits</td>
-      </tr>
-      <tr>
-          <td>1</td>
-          <td>asdf asdf</td>
-          <td>full link</td>
-          <td>visits</td>
-      </tr>
-      <tr>
-          <td>1</td>
-          <td>asdf asdf</td>
-          <td>full link</td>
-          <td>visits</td>
+      <tr v-for="link in links" :key="link.id">
+          <td>{{link.id}}</td>
+          <td><a href="#" target="_blank" @click.prevent="redirectPage(link.id, link.full)">{{link.link}}</a></td>
+          <td>{{link.full}}</td>
+          <td>{{link.count}}</td>
       </tr>
   </tbody>
 </table>
 </section>
 </template>
+<script>
+export default{
+    data: () => ({
+        links: [],
+        errors: false,
+        error_message: '',
+    }),
+    created(){
+      this.getLinks()
+    },
+    methods: {
+        getLinks(){
+            this.$http.get('/api/links').then(function(response){
+                if(response.status == 200){
+                    this.links = response.data.data
+                } 
+            }, function (response){
+                this.error_message = "Что то пошло не так!"
+            })
+        },
+        redirectPage(id, link){
+            this.$http.post('/api/visiting/' + id ).then(function(response){
+                if(response.status == 201){
+                    // this.$router.push(link)
+                    console.log(response.data)
+                } 
+            }, function (response){
+                this.error_message = "Что то пошло не так!"
+            })
+        }
+
+    }
+}
+</script>

@@ -14,9 +14,8 @@ class CreateVisitsTable extends Migration
     public function up()
     {
         Schema::create('visits', function (Blueprint $table) {
-            $table->id('link_id');
-            $table->index('link_id');
-            $table->foreign('link_id')->references('id')->on('short_links')->onDelete('cascade');
+            $table->id();
+            $table->integer('link_id');
             $table->ipAddress('ip_address');
             $table->string('user_agent');
             $table->timestamps();

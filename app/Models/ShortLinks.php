@@ -2,10 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class ShortLinks extends Model
 {
-    use HasFactory;
+    protected $tablename = 'short_links';
+    
+    protected $fillable = ['short_link', 'full_link'];
+
+    public static function createShortLink($link, $domain){
+        
+        return self::create([
+            'short_link' => $domain .'/'. str_random(8),
+            'full_link' => $link['full_link']
+        ]);
+
+    }
+    public function visits(){
+
+        return $this->hasMany(Visits::class, 'link_id');
+
+    }
+
 }
